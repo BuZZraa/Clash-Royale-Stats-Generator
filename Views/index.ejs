@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash Royaler Stats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css"/>
+</head>
+<body>
+    <header>
+        <img src="/images/clashRoyaleLogo.png" class="logo"/>
+    </header>
+    <div class="container">
+        <form action="/generate" method="post" class="inputForm">
+            <h1>Clash Royale Stats</h1><br />
+            <label for="playerTag">Enter your player tag:</label><br />
+            <input type="text" name="playerTag" placeholder="ABCD1234" id="playerTag" /><br /><br />
+            <input type="submit" value="Generate Stats" /> 
+        </form>
+        <% if(locals.playerStats) { %>
+            <div class="statsContainer">
+                <form>
+                    <h2>Stats for <%= playerStats.name %></h2>
+                    <div class="statsRow">
+                        <div>
+                            <label>Player Tag</label><br />
+                            <input type="text" value="<%= playerStats.tag %>" disabled />
+                        </div>
+
+                        <div>
+                            <label>EXP Level</label><br />
+                            <input type="text" value="<%= playerStats.expLevel %>" disabled />
+                        </div>
+
+                        <div>
+                            <label>Trophies</label><br />
+                            <input type="text" value="<%= playerStats.trophies %>" disabled />
+                        </div>                      
+                    </div>
+                
+
+                    <div class="statsRow">
+                        <div>
+                            <label>Wins</label><br />
+                            <input type="text" value="<%= playerStats.wins %>" disabled />
+                        </div>
+
+                        <div>
+                            <label>Losses</label><br />
+                            <input type="text" value="<%= playerStats.losses %>" disabled />
+                        </div>
+
+                        <div>
+                            <label>Battle Count</label><br />
+                            <input type="text" value="<%= playerStats.battleCount %>" disabled />
+                        </div>           
+                    </div>   
+                </form>
+            </div>
+
+            <% if(locals.playerChest) { %>
+                <div class="chestContainer">
+                    <h2>Upcoming Chests</h2>
+                    <div class="chests">
+                        <% for(i=0; i<8; i++) { %>
+                            <p><%=i+1%></p>
+                            <img src="/images/chestImages/<%= playerChest.items[i].name %>.png" width="128px" height="128px" alt="<%= playerChest.items[i].name %>"/>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
+
+        <% } else { %>
+            <% if(locals.playerTag) { %>
+                <h3>No stats were found for <%= playerTag %>.</h3>
+            <% } %>
+        <% } %>
+    </div>
+    
+    <footer>
+        <p>© Prashant Bajracharya. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
